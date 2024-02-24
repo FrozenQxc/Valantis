@@ -23,7 +23,7 @@ export const getIds = async (
 
 	try {
 		const response = await fetch(
-			'http://api.valantis.store:40000/',
+			'https://api.valantis.store:41000/',
 			requestOptions
 		)
 		if (!response.ok) {
@@ -52,9 +52,10 @@ export const getItems = async (ids: string[]): Promise<ItemsType[]> => {
 
 	try {
 		const response = await fetch(
-			'http://api.valantis.store:40000/',
+			'https://api.valantis.store:41000/',
 			requestOptions
 		)
+
 		if (!response.ok) {
 			throw new Error('Ошибка запроса')
 		}
