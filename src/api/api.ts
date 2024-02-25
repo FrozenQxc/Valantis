@@ -94,7 +94,7 @@ export const filterIds = async (price: number): Promise<string[]> => {
 	}
 }
 
-export const brand = async (brand: string): Promise<string[]> => {
+export const getBrands = async (): Promise<string[]> => {
 	const requestOptions = {
 		method: 'POST',
 		headers: {
@@ -103,7 +103,7 @@ export const brand = async (brand: string): Promise<string[]> => {
 		},
 		body: JSON.stringify({
 			action: 'get_fields',
-			params: { field: { brand }, offset: 1, limit: 100 },
+			params: { field: 'brand', offset: 0, limit: 100 },
 		}),
 	}
 
@@ -113,7 +113,11 @@ export const brand = async (brand: string): Promise<string[]> => {
 			throw new Error('Ошибка запроса')
 		}
 		const data = await response.json()
-		return data.result
+		// Фильтруем и удаляем пустые значения
+		const brands: string[] = data.result.filter(
+			(brand: string | null) => brand !== null
+		)
+		return brands
 	} catch (error) {
 		console.error('Ошибка:', error)
 		return []
