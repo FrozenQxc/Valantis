@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import { ItemsType } from '../types/types'
 import * as Api from './api/api'
 import Cards from './components/Cards'
+import Pagination from './components/Pagination'
 
 export default function App() {
 	const [pages, setPages] = useState<string[]>()
 	const [items, setItems] = useState<ItemsType[]>()
+	const [currentPage, setCurrentPage] = useState(1)
+	const [postsPerPage, setPostsPerPage] = useState(9)
 
 	const fetchData = async () => {
 		try {
@@ -34,14 +37,25 @@ export default function App() {
 			fetchItems(pages)
 		}
 	}, [pages])
+
+	const lastPostIndex = currentPage * postsPerPage
+	const firstPostIndex = lastPostIndex - postsPerPage
+	const currentPosts = items?.slice(firstPostIndex, lastPostIndex)
+
 	return (
-		<div className='body'>
+		<div className='body flex flex-col justify-between p'>
 			<header className='bg-[#111]'>
-				<h1 className='text-yellow-300 text-[40px] px-[40px]'>
+				<h1 className='flex justify-center text-yellow-300 text-[40px] px-[40px]'>
 					Ювелирный магазин
 				</h1>
 			</header>
-			<Cards items={items} />
+			<Cards items={currentPosts} />
+			<Pagination
+				totalPosts={items?.length}
+				postsPerPage={postsPerPage}
+				setCurrentPage={setCurrentPage}
+				currentPage={currentPage}
+			/>
 		</div>
 	)
 }

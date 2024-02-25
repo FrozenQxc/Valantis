@@ -6,11 +6,11 @@ interface Props {
 
 const Cards = ({ items }: Props) => {
 	return (
-		<div className='flex gap-10 mt-[40px] justify-center p-5 mx-auto w-[1200px] flex-wrap '>
+		<div className='flex gap-10 mt-[40px] justify-center p-5 mx-auto w-[1500px] flex-wrap '>
 			{items &&
 				Object.values(items).map((item, index) => (
 					<div key={index}>
-						<div className='flex flex-col shadow-neon text-center text-white items-center p-3  '>
+						<div className='flex flex-col shadow-neon text-center text-white items-center p-3 justify-center w-[400px] h-[250px] '>
 							<span>
 								Бренд: {typeof item.brand === 'string' ? item.brand : 'N/A'}
 							</span>
