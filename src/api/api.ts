@@ -6,6 +6,7 @@ const BASE_URL = 'https://api.valantis.store:41000/'
 const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '')
 const authString = md5(`${password}_${timestamp}`).toString()
 
+// список идентификаторов товаров
 export const getIds = async (limit: number): Promise<string[]> => {
 	const offset = 1
 	const requestOptions = {
@@ -41,6 +42,7 @@ export const getIds = async (limit: number): Promise<string[]> => {
 	}
 }
 
+//  список товаров со всеми характеристиками
 export const getItems = async (ids: string[]): Promise<ItemsType[]> => {
 	const requestOptions = {
 		method: 'POST',
@@ -93,7 +95,7 @@ export const filterIds = async (price: number): Promise<string[]> => {
 		return []
 	}
 }
-
+// Сортировка по бренду
 export const getBrands = async (): Promise<string[]> => {
 	const requestOptions = {
 		method: 'POST',

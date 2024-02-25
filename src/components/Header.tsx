@@ -8,6 +8,7 @@ interface Props {
 const Header = ({ setPages }: Props) => {
 	const [price, setPrice] = useState(0)
 
+	// Обнулить значение
 	const reset = async () => {
 		try {
 			const data = await Api.getIds(50)
@@ -18,6 +19,7 @@ const Header = ({ setPages }: Props) => {
 		}
 	}
 
+	// Отсортировать по цене
 	const priceFound = async () => {
 		try {
 			const data = await Api.filterIds(price)
@@ -28,10 +30,21 @@ const Header = ({ setPages }: Props) => {
 	}
 
 	return (
-		<header className='bg-[#111] flex flex-col justify-center items-center gap-5 px-5'>
-			<h1 className='text-yellow-300 text-2xl md:text-4xl text-center'>
-				Ювелирный магазин
-			</h1>
+		<header className='bg-[#111] flex flex-col justify-center items-center gap-5 px-5 pt-5'>
+			<div className='flex gap-2 items-center'>
+				<a href='https://github.com/FrozenQxc/Valantis' title='GitHub'>
+					<img
+						className='hover:bg-white rounded-[50%]'
+						width='50'
+						height='50'
+						src='https://img.icons8.com/ios-filled/50/github.png'
+						alt='github'
+					/>
+				</a>
+				<h1 className='text-yellow-300 text-2xl md:text-4xl text-center'>
+					Ювелирный магазин
+				</h1>
+			</div>
 			<h2 className='text-white text-lg'>Цена: {price}</h2>
 			<input
 				className='w-full md:w-[350px] bg-gray-800 text-white rounded-md  py-2'
