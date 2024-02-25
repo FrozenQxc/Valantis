@@ -105,7 +105,7 @@ export const getBrands = async (): Promise<string[]> => {
 		},
 		body: JSON.stringify({
 			action: 'get_fields',
-			params: { field: 'brand', offset: 0, limit: 100 },
+			params: { field: 'brand', offset: 0, limit: 50 },
 		}),
 	}
 

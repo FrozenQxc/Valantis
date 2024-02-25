@@ -11,6 +11,9 @@ export default function App() {
 	const [items, setItems] = useState<ItemsType[]>()
 	const [currentPage, setCurrentPage] = useState(1)
 	const [postsPerPage, setPostsPerPage] = useState<number>(9)
+	const [select, setSelect] = useState<string>('')
+
+	console.log(select === 'd')
 
 	// Получить список идентификаторов товаров
 	const getData = async () => {
@@ -36,6 +39,10 @@ export default function App() {
 		}
 	}
 
+	const filteredItems = items?.filter(item => item.brand !== null)
+
+	console.log(filteredItems)
+
 	useEffect(() => {
 		getData()
 	}, [])
@@ -48,11 +55,14 @@ export default function App() {
 
 	const lastPostIndex = currentPage * postsPerPage
 	const firstPostIndex = lastPostIndex - postsPerPage
-	const currentPosts = items?.slice(firstPostIndex, lastPostIndex)
+	const currentPosts =
+		select === 'null'
+			? filteredItems?.slice(firstPostIndex, lastPostIndex)
+			: items?.slice(firstPostIndex, lastPostIndex)
 
 	return (
 		<div className='bg-[#111] flex flex-col min-h-screen'>
-			<Header setPages={setPages} />
+			<Header setPages={setPages} setSelect={setSelect} />
 			<Cards items={currentPosts} loading={loading} />
 			<Pagination
 				currentPage={currentPage}
