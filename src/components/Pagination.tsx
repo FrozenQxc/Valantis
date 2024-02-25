@@ -1,8 +1,7 @@
 import { FC } from 'react'
-import { ItemsType } from '../../types/types'
 
 type IPagination = {
-	totalPosts: ItemsType
+	totalPosts?: number
 	postsPerPage: number
 	setCurrentPage: (arg: number) => void
 }
@@ -13,7 +12,7 @@ const Pagination: FC<IPagination> = ({
 	setCurrentPage,
 }) => {
 	let pages = []
-	for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+	for (let i = 1; i <= Math.ceil(totalPosts! / postsPerPage); i++) {
 		pages.push(i)
 	}
 	return (

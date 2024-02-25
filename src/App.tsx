@@ -8,7 +8,7 @@ export default function App() {
 	const [pages, setPages] = useState<string[]>()
 	const [items, setItems] = useState<ItemsType[]>()
 	const [currentPage, setCurrentPage] = useState(1)
-	const [postsPerPage, setPostsPerPage] = useState(9)
+	const [postsPerPage] = useState<number>(9)
 
 	const fetchData = async () => {
 		try {
@@ -54,7 +54,6 @@ export default function App() {
 				totalPosts={items?.length}
 				postsPerPage={postsPerPage}
 				setCurrentPage={setCurrentPage}
-				currentPage={currentPage}
 			/>
 		</div>
 	)
