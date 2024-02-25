@@ -6,33 +6,40 @@ import Pagination from './components/Pagination'
 
 export default function App() {
 	const [pages, setPages] = useState<string[]>()
+	const [loading, setLoading] = useState<boolean>(false)
 	const [price, setPrice] = useState(0)
 	const [items, setItems] = useState<ItemsType[]>()
 	const [currentPage, setCurrentPage] = useState(1)
-	const [postsPerPage] = useState<number>(9)
+	const [postsPerPage, setPostsPerPage] = useState<number>(9)
 
 	const fetchData = async () => {
+		setLoading(true)
 		try {
-			const data = await Api.getIds()
+			const data = await Api.getIds(50)
 			setPages(data)
+			setLoading(false)
 		} catch (error) {
 			console.log(error, 'произошла ошибка')
 		}
 	}
 
 	const fetchItems = async (ids: string[]) => {
+		setLoading(true)
 		try {
 			const data: ItemsType[] = await Api.getItems(ids)
 			setItems(data)
+			setLoading(false)
 		} catch (error) {
 			console.log(error, 'произошла ошибка')
 		}
 	}
 
 	const priceFound = async () => {
+		setLoading(true)
 		try {
 			const data = await Api.filterIds(price)
 			setPages(data)
+			setLoading(false)
 		} catch (error) {
 			console.log(error, 'произошла ошибка')
 		}
@@ -40,7 +47,7 @@ export default function App() {
 
 	const reset = async () => {
 		try {
-			const data = await Api.getIds()
+			const data = await Api.getIds(50)
 			setPages(data)
 			setPrice(0)
 		} catch (error) {
@@ -72,7 +79,7 @@ export default function App() {
 					</h1>
 					<h2 className='text-white text-lg'>Цена: {price}</h2>
 					<input
-						className='w-full md:w-[350px] bg-gray-800 text-white rounded-md px-4 py-2'
+						className='w-full md:w-[350px] bg-gray-800 text-white rounded-md  py-2'
 						value={price}
 						type='range'
 						min='0'
@@ -95,8 +102,9 @@ export default function App() {
 						</button>
 					</div>
 				</header>
-				<Cards items={currentPosts} />
+				<Cards items={currentPosts} loading={loading} />
 				<Pagination
+					setPostsPerPage={setPostsPerPage}
 					totalPosts={items?.length}
 					postsPerPage={postsPerPage}
 					setCurrentPage={setCurrentPage}

@@ -2,13 +2,14 @@ import { ItemsType } from '../../types/types'
 
 interface Props {
 	items: ItemsType[] | undefined
+	loading: boolean
 }
 
-const Cards = ({ items }: Props) => {
-	if (items?.length == 0) {
+const Cards = ({ items, loading }: Props) => {
+	if (loading) {
 		return (
-			<div className='text-[25px] text-white flex flex-wrap justify-center gap-5 p-5 mx-auto md:max-w-4xl lg:max-w-6xl xl:max-w-7xl'>
-				<h1>Кольца не найдены!</h1>
+			<div className='text-white w-[1200px] h-[700px] text-[35px] animate-pulse flex items-center text-center justify-center gap-5 p-5 mx-auto md:max-w-4xl lg:max-w-6xl xl:max-w-7xl'>
+				Loading...
 			</div>
 		)
 	}

@@ -6,10 +6,8 @@ const BASE_URL = 'https://api.valantis.store:41000/'
 const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '')
 const authString = md5(`${password}_${timestamp}`).toString()
 
-export const getIds = async (
-	offset: number = 1,
-	limit: number = 50
-): Promise<string[]> => {
+export const getIds = async (limit: number): Promise<string[]> => {
+	const offset = 1
 	const requestOptions = {
 		method: 'POST',
 		headers: {
