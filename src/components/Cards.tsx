@@ -5,25 +5,34 @@ interface Props {
 }
 
 const Cards = ({ items }: Props) => {
+	if (items?.length == 0) {
+		return (
+			<div className='text-[25px] text-white flex flex-wrap justify-center gap-5 p-5 mx-auto md:max-w-4xl lg:max-w-6xl xl:max-w-7xl'>
+				<h1>Кольца не найдены!</h1>
+			</div>
+		)
+	}
+
 	return (
-		<div className='flex gap-10 mt-[40px] justify-center p-5 mx-auto w-[1500px] flex-wrap '>
+		<div className='flex flex-wrap justify-center gap-5 p-5 mx-auto md:max-w-4xl lg:max-w-6xl xl:max-w-7xl'>
 			{items &&
-				Object.values(items).map((item, index) => (
-					<div key={index}>
-						<div className='flex flex-col shadow-neon text-center text-white items-center p-3 justify-center w-[400px] h-[250px] '>
-							<span>
-								Бренд: {typeof item.brand === 'string' ? item.brand : 'N/A'}
-							</span>
-							<span>
-								Цена: <i className=' text-yellow-300'>{item.price}</i>
-							</span>
-							<span>{item.product}</span>
-							<img
-								className='w-[100px] h-[100px] m-5'
-								src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/One_Ring_Blender_Render.png/800px-One_Ring_Blender_Render.png'
-								alt='card'
-							/>
-						</div>
+				items.map((item, index) => (
+					<div
+						key={index}
+						className='flex flex-col shadow-neon text-center text-white items-center p-3 justify-center w-full md:w-[400px] lg:w-[400px] hover:animate-pulse'
+					>
+						<span>
+							Бренд: {typeof item.brand === 'string' ? item.brand : 'N/A'}
+						</span>
+						<span>
+							Цена: <i className='text-yellow-300'>{item.price}</i>
+						</span>
+						<span>{item.product}</span>
+						<img
+							className='w-20 h-20 m-5 xl:w-24 xl:h-24'
+							src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/One_Ring_Blender_Render.png/800px-One_Ring_Blender_Render.png'
+							alt='card'
+						/>
 					</div>
 				))}
 		</div>

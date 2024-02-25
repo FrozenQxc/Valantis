@@ -16,11 +16,11 @@ const Pagination: FC<IPagination> = ({
 		pages.push(i)
 	}
 	return (
-		<div className=' my-10 text-white gap-2 items-center text-center flex justify-center '>
+		<div className='flex flex-wrap justify-center gap-5 p-5 mx-auto md:max-w-4xl lg:max-w-6xl xl:max-w-7xl'>
 			{pages.map((page, index) => {
 				return (
 					<button
-						className='border p-3  hover:text-teal-200    '
+						className='border p-3 text-white  hover:text-teal-200    '
 						key={index}
 						onClick={() => setCurrentPage(page)}
 					>

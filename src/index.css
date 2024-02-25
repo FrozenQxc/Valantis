@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 .body {
-	@apply bg-[#111] h-screen w-full;
+	@apply bg-[#111];
+}
+
+.card {
+	@apply flex flex-col gap-5 items-center p-5 mx-auto max-w-screen-md;
 }
