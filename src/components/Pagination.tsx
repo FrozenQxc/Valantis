@@ -23,6 +23,7 @@ const Pagination: FC<IPagination> = ({
 	const handlePerPageChange = (e: ChangeEvent<HTMLSelectElement>) => {
 		const newPostsPerPage = parseInt(e.target.value)
 		setPostsPerPage(newPostsPerPage)
+		setCurrentPage(1)
 	}
 
 	return (

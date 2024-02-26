@@ -8,12 +8,23 @@ import Pagination from './components/Pagination'
 export default function App() {
 	const [pages, setPages] = useState<string[]>()
 	const [loading, setLoading] = useState<boolean>(false)
-	const [items, setItems] = useState<ItemsType[]>()
+	const [items, setItems] = useState<ItemsType[] | undefined>()
 	const [currentPage, setCurrentPage] = useState(1)
 	const [postsPerPage, setPostsPerPage] = useState<number>(9)
-	const [select, setSelect] = useState<string>('')
+	const [selectBrand, setSelectBrand] = useState<string>('')
+	const [brand, setBrand] = useState<string[]>()
+	const [searchValue, setSearchValue] = useState<string>('')
 
-	console.log(select === 'd')
+	const lastPostIndex = currentPage * postsPerPage
+	const firstPostIndex = lastPostIndex - postsPerPage
+
+	const itemsSlice = items
+		?.filter(item => {
+			return searchValue.toLowerCase() === ''
+				? item
+				: item.product.toLowerCase().includes(searchValue)
+		})
+		.slice(firstPostIndex, lastPostIndex)
 
 	// Получить список идентификаторов товаров
 	const getData = async () => {
@@ -40,12 +51,16 @@ export default function App() {
 	}
 
 	const filteredItems = items?.filter(item => item.brand !== null)
-
-	console.log(filteredItems)
+	const filteredByBrand = items?.filter(item => item.brand === selectBrand)
 
 	useEffect(() => {
 		getData()
 	}, [])
+
+	useEffect(() => {
+		filterBrand()
+		setCurrentPage(1)
+	}, [selectBrand])
 
 	useEffect(() => {
 		if (pages) {
@@ -53,17 +68,27 @@ export default function App() {
 		}
 	}, [pages])
 
-	const lastPostIndex = currentPage * postsPerPage
-	const firstPostIndex = lastPostIndex - postsPerPage
-	const currentPosts =
-		select === 'null'
-			? filteredItems?.slice(firstPostIndex, lastPostIndex)
-			: items?.slice(firstPostIndex, lastPostIndex)
+	const filterBrand = () => {
+		if (selectBrand === 'null') {
+			setItems(filteredItems)
+		} else if (selectBrand === 'd') {
+			getItems(pages)
+		} else {
+			setItems(filteredByBrand)
+		}
+	}
 
 	return (
 		<div className='bg-[#111] flex flex-col min-h-screen'>
-			<Header setPages={setPages} setSelect={setSelect} />
-			<Cards items={currentPosts} loading={loading} />
+			<Header
+				searchValue={searchValue}
+				setSearchValue={setSearchValue}
+				setPages={setPages}
+				setSelectBrand={setSelectBrand}
+				brand={brand}
+				setBrand={setBrand}
+			/>
+			<Cards searchValue={searchValue} items={itemsSlice} loading={loading} />
 			<Pagination
 				currentPage={currentPage}
 				setPostsPerPage={setPostsPerPage}

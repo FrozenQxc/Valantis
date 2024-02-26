@@ -4,9 +4,10 @@ import Skeleton from './Skeleton'
 interface Props {
 	items: ItemsType[] | undefined
 	loading: boolean
+	searchValue: string
 }
 
-const Cards = ({ items, loading }: Props) => {
+const Cards = ({ items, loading, searchValue }: Props) => {
 	const skeleton = Array.from({ length: 9 }).map((_, index) => (
 		<Skeleton key={index} />
 	))
@@ -16,6 +17,7 @@ const Cards = ({ items, loading }: Props) => {
 			key={index}
 			className='flex flex-col shadow-neon text-center text-white items-center p-3 justify-center w-full md:w-[400px] lg:w-[400px] hover:animate-pulse'
 		>
+			<span>id: {item.id}</span>
 			<span>Бренд: {typeof item.brand === 'string' ? item.brand : 'N/A'}</span>
 			<span>
 				Цена: <i className='text-yellow-300'>{item.price}</i>
