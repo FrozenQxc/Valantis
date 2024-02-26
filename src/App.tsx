@@ -72,7 +72,9 @@ export default function App() {
 		if (selectBrand === 'null') {
 			setItems(filteredItems)
 		} else if (selectBrand === 'd') {
-			getItems(pages)
+			if (pages) {
+				getItems(pages)
+			}
 		} else {
 			setItems(filteredByBrand)
 		}
@@ -88,7 +90,7 @@ export default function App() {
 				brand={brand}
 				setBrand={setBrand}
 			/>
-			<Cards searchValue={searchValue} items={itemsSlice} loading={loading} />
+			<Cards items={itemsSlice} loading={loading} />
 			<Pagination
 				currentPage={currentPage}
 				setPostsPerPage={setPostsPerPage}

@@ -4,10 +4,9 @@ import Skeleton from './Skeleton'
 interface Props {
 	items: ItemsType[] | undefined
 	loading: boolean
-	searchValue: string
 }
 
-const Cards = ({ items, loading, searchValue }: Props) => {
+const Cards = ({ items, loading }: Props) => {
 	const skeleton = Array.from({ length: 9 }).map((_, index) => (
 		<Skeleton key={index} />
 	))
