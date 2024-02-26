@@ -8,7 +8,6 @@ const authString = md5(`${password}_${timestamp}`).toString()
 
 // список идентификаторов товаров
 export const getIds = async (limit: number): Promise<string[]> => {
-	const offset = 1
 	const requestOptions = {
 		method: 'POST',
 		headers: {
@@ -17,7 +16,7 @@ export const getIds = async (limit: number): Promise<string[]> => {
 		},
 		body: JSON.stringify({
 			action: 'get_ids',
-			params: { offset, limit },
+			params: { offset: 0, limit },
 		}),
 	}
 
@@ -95,7 +94,7 @@ export const filterIds = async (price: number): Promise<string[]> => {
 		return []
 	}
 }
-// Сортировка по бренду
+// получить список брендов
 export const getBrands = async (): Promise<string[]> => {
 	const requestOptions = {
 		method: 'POST',
@@ -105,7 +104,7 @@ export const getBrands = async (): Promise<string[]> => {
 		},
 		body: JSON.stringify({
 			action: 'get_fields',
-			params: { field: 'brand', offset: 0, limit: 50 },
+			params: { field: 'brand', offset: 0, limit: 250 },
 		}),
 	}
 
