@@ -98,17 +98,18 @@ const Header = ({
 					onChange={e => setPrice(parseInt(e.target.value))}
 				/>
 			</div>
-			<div className='flex gap-5'>
+			<div className='flex flex-col items-center gap-5 md:flex-row  '>
+				<label className='text-white text-lg '>Поиск</label>
 				<input
 					type='text'
 					autoFocus
 					value={searchValue}
 					placeholder='Введите текст'
 					onChange={e => setSearchValue(e.target.value)}
-					className='w-[300px] bg-white'
+					className='w-[300px] p-2 bg-white'
 				/>
-				<label className=' text-white text-lg'>Сортировка:</label>
-				<select name='sort' onChange={handleSortChange}>
+				<label className=' text-white text-lg '>Сортировка:</label>
+				<select name='sort' className=' p-2' onChange={handleSortChange}>
 					<option value='d'>Сортировать </option>
 					<option value='null'>Убрать бренд без название</option>
 					{brand?.map((item, index) => (

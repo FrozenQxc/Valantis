@@ -94,6 +94,7 @@ export const filterIds = async (price: number): Promise<string[]> => {
 		return []
 	}
 }
+
 // получить список брендов
 export const getBrands = async (): Promise<string[]> => {
 	const requestOptions = {
